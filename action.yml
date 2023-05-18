@@ -1,0 +1,18 @@
+name: 'Backlog-GitHub Sync Action'
+description: 'Sync GitHub PRs to Backlog issues'
+inputs:
+  BACKLOG_SPACE_NAME:
+    description: 'Your Backlog space name'
+    required: true
+  BACKLOG_API_KEY:
+    description: 'Your Backlog API key'
+    required: true
+  BACKLOG_PROJECT_KEY:
+    description: 'Your Backlog project key'
+    required: true
+  BACKLOG_CUSTOM_FIELD_ID:
+    description: 'Your Backlog custom field ID'
+    required: true
+runs:
+  using: node16
+  main: sync.js
