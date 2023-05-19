@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - name: GitHub-Backlog Sync Action
-      uses: pj8/github-backlog-sync@v1.2.6
+      uses: pj8/github-backlog-sync@v1.2.8
       with:
         BACKLOG_API_KEY: ${{ secrets.BACKLOG_API_KEY }}
         BACKLOG_SPACE_NAME: "your_space_name"
