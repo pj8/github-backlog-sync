@@ -1,11 +1,11 @@
 name: 'Backlog-GitHub Sync Action'
 description: 'Sync GitHub PRs to Backlog issues'
 inputs:
-  BACKLOG_SPACE_NAME:
-    description: 'Your Backlog space name'
-    required: true
   BACKLOG_API_KEY:
     description: 'Your Backlog API key'
+    required: true
+  BACKLOG_SPACE_NAME:
+    description: 'Your Backlog space name'
     required: true
   BACKLOG_PROJECT_KEY:
     description: 'Your Backlog project key'
@@ -16,3 +16,8 @@ inputs:
 runs:
   using: docker
   image: Dockerfile
+  env:
+    BACKLOG_API_KEY: ${{ inputs.BACKLOG_API_KEY }}
+    BACKLOG_SPACE_NAME: ${{ inputs.BACKLOG_SPACE_NAME }}
+    BACKLOG_PROJECT_KEY: ${{ inputs.BACKLOG_PROJECT_KEY }}
+    BACKLOG_CUSTOM_FIELD_ID: ${{ inputs.BACKLOG_CUSTOM_FIELD_ID }}
