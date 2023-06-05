@@ -6,6 +6,11 @@ const github = require('@actions/github');
   const { context } = github;
   const pr = context.payload.pull_request;
   const prBody = pr.body;
+
+  if (!prBody) {
+    return;
+  }
+
   const backlogIssueMatches = [...prBody.matchAll(new RegExp(`https?:\/\/[^\s]*${process.env.BACKLOG_SPACE_NAME}\.backlog\.jp\/view\/(${process.env.BACKLOG_PROJECT_KEY}-\\d+)`, 'g'))];
 
   console.log('BACKLOG_SPACE_NAME:', process.env.BACKLOG_SPACE_NAME);
