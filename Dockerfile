@@ -1,6 +1,10 @@
-FROM node:20
-WORKDIR /action
+FROM node:20-alpine AS builder
+WORKDIR /app
 COPY package*.json ./
-RUN --mount=type=cache,target=/root/.npm npm ci
+RUN npm ci --only=production
 COPY . .
+
+FROM node:20-alpine
+WORKDIR /action
+COPY --from=builder /app .
 ENTRYPOINT ["node", "/action/sync.js"]
