@@ -9,6 +9,7 @@
 
 - `BACKLOG_API_KEY`: Your Backlog API key. This is required.
 - `BACKLOG_SPACE_NAME`: Your Backlog space name. This is required.
+- `BACKLOG_SPACE_DOMAIN`: Your Backlog space domain. This is required.
 - `BACKLOG_PROJECT_KEY`: Your Backlog project key. This is required.
 - `BACKLOG_CUSTOM_FIELD_ID`: The ID of the Backlog custom field where the GitHub pull request URLs will be added. This is required.
 
@@ -31,6 +32,8 @@ jobs:
       with:
         BACKLOG_API_KEY: ${{ secrets.BACKLOG_API_KEY }}
         BACKLOG_SPACE_NAME: "your_space_name"
+        BACKLOG_SPACE_DOMAIN: "backlog.jp"
         BACKLOG_PROJECT_KEY: "your_project_key"
         BACKLOG_CUSTOM_FIELD_ID: your_custom_field_id
+        PR_BODY: ${{ github.event.pull_request.body }}
 ```
