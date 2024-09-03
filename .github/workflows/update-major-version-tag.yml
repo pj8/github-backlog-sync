@@ -1,5 +1,4 @@
 name: Update Major Version Tag
-run-name: Update ${{ github.ref_name }} to ${{ github.event.inputs.major_version }}
 
 on:
   push:
@@ -28,6 +27,10 @@ jobs:
           git config user.email "brand_adachi@shueisha.co.jp"
 
       - name: Update major version tag
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git tag -fa ${{ steps.version.outputs.major_version }} -m "Update ${{ steps.version.outputs.major_version }} to ${{ github.ref_name }}"
-          git push origin ${{ steps.version.outputs.major_version }} --force
+          git push https://${PAT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.version.outputs.major_version }} --force
