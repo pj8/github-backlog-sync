@@ -1,0 +1,33 @@
+name: Update Major Version Tag
+run-name: Update ${{ github.ref_name }} to ${{ github.event.inputs.major_version }}
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  update-major-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract major version
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          MAJOR_VERSION=v${VERSION%%.*}
+          echo "major_version=${MAJOR_VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Set git user
+        run: |
+          git config user.name "Yuki Adachi"
+          git config user.email "brand_adachi@shueisha.co.jp"
+
+      - name: Update major version tag
+        run: |
+          git tag -fa ${{ steps.version.outputs.major_version }} -m "Update ${{ steps.version.outputs.major_version }} to ${{ github.ref_name }}"
+          git push origin ${{ steps.version.outputs.major_version }} --force
