@@ -22,6 +22,8 @@ inputs:
     default: ''
 
 runs:
+  using: 'docker'
+  image: 'Dockerfile'
   steps:
     - name: Check for Backlog URL
       id: check_url
@@ -34,7 +36,6 @@ runs:
         fi
 
     - name: Run sync if Backlog URL exists
-      uses: docker://Dockerfile
       if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
       env:
         BACKLOG_API_KEY: ${{ inputs.BACKLOG_API_KEY }}
