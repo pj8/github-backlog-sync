@@ -22,8 +22,7 @@ inputs:
     default: ''
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'composite'
   steps:
     - name: Check for Backlog URL
       id: check_url
@@ -37,6 +36,7 @@ runs:
 
     - name: Run sync if Backlog URL exists
       if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
+      uses: docker://Dockerfile
       env:
         BACKLOG_API_KEY: ${{ inputs.BACKLOG_API_KEY }}
         BACKLOG_SPACE_NAME: ${{ inputs.BACKLOG_SPACE_NAME }}
