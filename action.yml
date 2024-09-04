@@ -33,13 +33,14 @@ runs:
         else
           echo "CONTAINS_BACKLOG_URL=false" >> $GITHUB_OUTPUT
         fi
-      env:
-        BACKLOG_SPACE_NAME: ${{ inputs.BACKLOG_SPACE_NAME }}
-        BACKLOG_SPACE_DOMAIN: ${{ inputs.BACKLOG_SPACE_DOMAIN }}
+
+    - name: Checkout
+      if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
+    - uses: actions/checkout@v4
 
     - name: Setup Node.js
       if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '20'
 
