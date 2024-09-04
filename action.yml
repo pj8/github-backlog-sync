@@ -28,7 +28,7 @@ runs:
       id: check_url
       shell: bash
       run: |
-        if echo "${{ inputs.PR_BODY }}" | grep -q "https://${{ inputs.BACKLOG_SPACE_NAME }}.${{ inputs.BACKLOG_SPACE_DOMAIN }}/"; then
+        if echo '${{ inputs.PR_BODY }}' | grep -q "https://${{ inputs.BACKLOG_SPACE_NAME }}.${{ inputs.BACKLOG_SPACE_DOMAIN }}/"; then
           echo "CONTAINS_BACKLOG_URL=true" >> $GITHUB_OUTPUT
         else
           echo "CONTAINS_BACKLOG_URL=false" >> $GITHUB_OUTPUT
