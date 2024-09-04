@@ -29,29 +29,21 @@ runs:
       shell: bash
       run: |
         if echo '${{ inputs.PR_BODY }}' | grep -q "https://${{ inputs.BACKLOG_SPACE_NAME }}.${{ inputs.BACKLOG_SPACE_DOMAIN }}/"; then
-          echo "CONTAINS_BACKLOG_URL=true" >> $GITHUB_OUTPUT
+          echo "Backlog URLが見つかりました。処理を続行します。"
         else
-          echo "CONTAINS_BACKLOG_URL=false" >> $GITHUB_OUTPUT
+          echo "Backlog URLが見つかりません。アクションを終了します。"
+          exit 0
         fi
 
-    - name: Checkout
-      if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
-    - uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-
     - name: Install dependencies
-      if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
-      shell: bash
-      run: npm ci
+      run: |
+        pwd
+        ls -la
+        node -v
+        npm -v
+        npm ci
 
     - name: Run sync
-      if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
-      shell: bash
       run: node index.js
       env:
         BACKLOG_API_KEY: ${{ inputs.BACKLOG_API_KEY }}
