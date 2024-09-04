@@ -36,6 +36,7 @@ runs:
         fi
 
     - name: Install dependencies
+      shell: bash
       run: |
         pwd
         ls -la
@@ -44,6 +45,7 @@ runs:
         npm ci
 
     - name: Run sync
+      shell: bash
       run: node index.js
       env:
         BACKLOG_API_KEY: ${{ inputs.BACKLOG_API_KEY }}
