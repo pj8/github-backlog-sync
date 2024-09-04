@@ -33,6 +33,9 @@ runs:
         else
           echo "CONTAINS_BACKLOG_URL=false" >> $GITHUB_OUTPUT
         fi
+      env:
+        BACKLOG_SPACE_NAME: ${{ inputs.BACKLOG_SPACE_NAME }}
+        BACKLOG_SPACE_DOMAIN: ${{ inputs.BACKLOG_SPACE_DOMAIN }}
 
     - name: Setup Node.js
       if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
