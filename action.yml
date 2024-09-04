@@ -35,6 +35,9 @@ runs:
           exit 0
         fi
 
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - name: Install dependencies
       shell: bash
       run: |
