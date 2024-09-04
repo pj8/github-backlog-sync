@@ -23,26 +23,4 @@ inputs:
 
 runs:
   using: 'node20'
-
-steps:
-  - name: Check Backlog URL
-    id: check_url
-    shell: bash
-    run: |
-      if echo "${{ inputs.PR_BODY }}" | grep -q "https://${{ inputs.BACKLOG_SPACE_NAME }}.${{ inputs.BACKLOG_SPACE_DOMAIN }}/"; then
-        echo "CONTAINS_BACKLOG_URL=true" >> $GITHUB_OUTPUT
-      else
-        echo "CONTAINS_BACKLOG_URL=false" >> $GITHUB_OUTPUT
-      fi
-
-  - name: Install dependencies
-    run: npm ci --only=production
-
-  - name: Run sync
-    if: steps.check_url.outputs.CONTAINS_BACKLOG_URL == 'true'
-    run: node sync.js
-    env:
-      BACKLOG_API_KEY: ${{ inputs.BACKLOG_API_KEY }}
-      BACKLOG_SPACE_NAME: ${{ inputs.BACKLOG_SPACE_NAME }}
-      BACKLOG_PROJECT_KEY: ${{ inputs.BACKLOG_PROJECT_KEY }}
-      BACKLOG_CUSTOM_FIELD_ID: ${{ inputs.BACKLOG_CUSTOM_FIELD_ID }}
+  main: 'index.js'
