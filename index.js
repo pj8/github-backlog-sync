@@ -14,7 +14,8 @@ async function run() {
     const backlogCustomFieldId = core.getInput('BACKLOG_CUSTOM_FIELD_ID');
 
     const { context } = github;
-    const prBody = context.payload.pull_request;
+    const pr = context.payload.pull_request;
+    const prBody = pr.body;
 
     if (!prBody) {
       console.log('PR本文が空です。処理を終了します。');
@@ -24,6 +25,7 @@ async function run() {
     const backlogIssueMatches = [...prBody.matchAll(new RegExp(`https?:\/\/[^\s]*${backlogSpaceName}\.${backlogSpaceDomain}\/view\/(${backlogProjectKey}-\\d+)`, 'g'))];
 
     console.log('BACKLOG_SPACE_NAME:', backlogSpaceName);
+    console.log('BACKLOG_SPACE_DOMAIN:', backlogSpaceDomain);
     console.log('BACKLOG_PROJECT_KEY:', backlogProjectKey);
     console.log('BACKLOG_CUSTOM_FIELD_ID:', backlogCustomFieldId);
 
