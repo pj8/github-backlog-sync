@@ -37,6 +37,9 @@ runs:
 
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        repository: 'pj8/github-backlog-sync'
+        ref: 'main'
 
     - name: Install dependencies
       shell: bash
