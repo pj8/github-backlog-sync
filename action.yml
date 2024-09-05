@@ -44,10 +44,6 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        pwd
-        ls -la
-        node -v
-        npm -v
         npm ci
 
     - name: Run sync
