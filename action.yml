@@ -39,7 +39,7 @@ runs:
       uses: actions/checkout@v4
       with:
         repository: 'pj8/github-backlog-sync'
-        ref: 'main'
+        ref: 'ubuntu-latest-node'
 
     - name: Install dependencies
       shell: bash
