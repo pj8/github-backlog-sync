@@ -27,8 +27,10 @@ runs:
     - name: Check Backlog URL
       id: check_url
       shell: bash
+      env:
+        PR_BODY: ${{ inputs.PR_BODY }}
       run: |
-        if echo '${{ inputs.PR_BODY }}' | grep -q "https://${{ inputs.BACKLOG_SPACE_NAME }}.${{ inputs.BACKLOG_SPACE_DOMAIN }}/"; then
+        if echo "$PR_BODY" | grep -q "https://${{ inputs.BACKLOG_SPACE_NAME }}.${{ inputs.BACKLOG_SPACE_DOMAIN }}/"; then
           echo "Backlog URLが見つかりました。処理を続行します。"
         else
           echo "Backlog URLが見つかりません。アクションを終了します。"
