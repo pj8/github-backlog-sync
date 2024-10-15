@@ -28,7 +28,7 @@ runs:
       id: check_url
       shell: bash
       run: |
-        if echo '${{ inputs.PR_BODY }}' | grep -q "https://${{ inputs.BACKLOG_SPACE_NAME }}.${{ inputs.BACKLOG_SPACE_DOMAIN }}/"; then
+        if printf '%s' "${{ inputs.PR_BODY }}" | grep -q "https://${{ inputs.BACKLOG_SPACE_NAME }}.${{ inputs.BACKLOG_SPACE_DOMAIN }}/"; then
           echo "Backlog URLが見つかりました。処理を続行します。"
         else
           echo "Backlog URLが見つかりません。アクションを終了します。"
